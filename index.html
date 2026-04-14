@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0A0A0A">
+    <meta name="color-scheme" content="dark">
+    <title>Proposta Comercial &mdash; Morana Joias &times; Aios</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ══════════════════════════════════════
+           RESET & BASE
+           ══════════════════════════════════════ */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            font-weight: 300;
+            background-color: var(--bg);
+            color: var(--white);
+            line-height: 1.7;
+            font-size: clamp(0.9rem, 1.4vw, 1rem);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            touch-action: manipulation;
+            overflow-x: hidden;
+        }
+
+        /* ══════════════════════════════════════
+           CUSTOM PROPERTIES
+           ══════════════════════════════════════ */
+        :root {
+            --bg: #0A0A0A;
+            --bg-alt: #0F0F0F;
+            --bg-card: #111111;
+            --gold: #C9A96E;
+            --gold-dim: rgba(201, 169, 110, 0.12);
+            --gold-border: rgba(201, 169, 110, 0.2);
+            --gold-glow: rgba(201, 169, 110, 0.06);
+            --white: #F5F5F5;
+            --gray: #8C7B5E;
+            --gray-muted: #5A4F3F;
+            --font-display: 'Cormorant Garamond', 'Georgia', serif;
+            --font-body: 'Inter', system-ui, sans-serif;
+            --container: 1080px;
+            --section-pad: clamp(5rem, 12vw, 9rem);
+        }
+
+        /* ══════════════════════════════════════
+           TYPOGRAPHY
+           ══════════════════════════════════════ */
+        h1, h2, h3 {
+            font-family: var(--font-display);
+            font-weight: 400;
+            text-wrap: balance;
+        }
+
+        h2 {
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            color: var(--white);
+            letter-spacing: 0.02em;
+        }
+
+        h3 {
+            font-size: clamp(1.05rem, 1.8vw, 1.2rem);
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        p {
+            text-wrap: pretty;
+        }
+
+        /* ══════════════════════════════════════
+           LAYOUT
+           ══════════════════════════════════════ */
+        .container {
+            max-width: var(--container);
+            margin: 0 auto;
+            padding: 0 clamp(1.5rem, 5vw, 3rem);
+        }
+
+        .section {
+            padding: var(--section-pad) 0;
+            position: relative;
+            scroll-margin-top: 2rem;
+        }
+
+        .section--alt {
+            background-color: var(--bg-alt);
+        }
+
+        .section-label {
+            font-family: var(--font-body);
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            color: var(--gray);
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: clamp(1.05rem, 2vw, 1.3rem);
+            max-width: 640px;
+            margin-top: 1rem;
+            line-height: 1.6;
+        }
+
+        .divider {
+            width: 50px;
+            height: 1px;
+            background: var(--gold);
+            opacity: 0.35;
+            margin: 0 auto;
+        }
+
+        /* ══════════════════════════════════════
+           REVEAL ANIMATIONS
+           ══════════════════════════════════════ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.35s; }
+        .reveal-delay-5 { transition-delay: 0.4s; }
+        .reveal-delay-6 { transition-delay: 0.45s; }
+        .reveal-delay-7 { transition-delay: 0.5s; }
+        .reveal-delay-8 { transition-delay: 0.55s; }
+        .reveal-delay-9 { transition-delay: 0.6s; }
+
+        /* ══════════════════════════════════════
+           SECTION 1 — COVER
+           ══════════════════════════════════════ */
+        .cover {
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background-color: var(--bg);
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .cover::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='48' height='48' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M24 4L44 24L24 44L4 24Z' fill='none' stroke='%23C9A96E' stroke-width='0.4' opacity='0.07'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        .cover::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 40%, rgba(201, 169, 110, 0.05) 0%, transparent 65%);
+            pointer-events: none;
+        }
+
+        .cover-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cover-pre {
+            font-family: var(--font-body);
+            font-size: 0.65rem;
+            font-weight: 400;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--gray);
+            margin-bottom: 2.5rem;
+        }
+
+        .brand-name {
+            font-family: var(--font-display);
+            font-size: clamp(2.8rem, 8vw, 5.5rem);
+            font-weight: 300;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--white);
+            line-height: 1.1;
+        }
+
+        .cover-line {
+            width: 50px;
+            height: 1px;
+            background: var(--gold);
+            margin: 2rem auto;
+            opacity: 0.6;
+        }
+
+        .tagline {
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+            color: var(--gray);
+            font-weight: 300;
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        .cover-footer {
+            position: absolute;
+            bottom: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+            text-align: center;
+        }
+
+        .cover-footer span {
+            font-size: 0.7rem;
+            color: var(--gray-muted);
+            letter-spacing: 0.1em;
+        }
+
+        .cover-footer-brand {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            color: var(--gold);
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            display: block;
+            margin-top: 0.25rem;
+        }
+
+        /* ══════════════════════════════════════
+           SECTION 2 — PROBLEMS
+           ══════════════════════════════════════ */
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .problem-card {
+            border: 1px solid var(--gold-border);
+            padding: clamp(1.5rem, 3vw, 2.5rem);
+            position: relative;
+        }
+
+        .problem-number {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 300;
+            color: var(--gold);
+            opacity: 0.35;
+            line-height: 1;
+            margin-bottom: 1rem;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .problem-card h3 {
+            font-size: clamp(1rem, 1.6vw, 1.15rem);
+            margin-bottom: 0.75rem;
+            line-height: 1.35;
+        }
+
+        .problem-card p {
+            font-size: 0.85rem;
+            color: var(--gray);
+            line-height: 1.65;
+        }
+
+        /* ══════════════════════════════════════
+           SECTION 3 — SOLUTION
+           ══════════════════════════════════════ */
+        .solution-header {
+            margin-bottom: 3.5rem;
+        }
+
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: var(--gold-border);
+            border: 1px solid var(--gold-border);
+        }
+
+        .solution-card {
+            background: var(--bg);
+            padding: clamp(1.5rem, 3vw, 2rem);
+            transition: background-color 0.2s ease;
+            cursor: default;
+        }
+
+        .solution-card:focus-within {
+            background-color: var(--bg-card);
+        }
+
+        .solution-card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.85rem;
+        }
+
+        .solution-icon {
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            color: var(--gold);
+            margin-top: 0.1rem;
+        }
+
+        .solution-card-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+            font-weight: 500;
+            color: var(--white);
+            line-height: 1.35;
+        }
+
+        .solution-card-desc {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease, opacity 0.25s ease;
+            margin-top: 0;
+        }
+
+        .solution-card-desc p {
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: 0.95rem;
+            color: var(--gray);
+            line-height: 1.6;
+            padding-top: 0.85rem;
+            padding-left: calc(28px + 0.85rem);
+        }
+
+        @media (hover: hover) {
+            .solution-card:hover {
+                background-color: var(--bg-card);
+            }
+
+            .solution-card:hover .solution-card-desc {
+                max-height: 8em;
+                opacity: 1;
+            }
+        }
+
+        @media (hover: none) {
+            .solution-card-desc {
+                max-height: none;
+                opacity: 1;
+            }
+
+            .solution-card-desc p {
+                padding-left: 0;
+            }
+        }
+
+        /* ══════════════════════════════════════
+           SECTION 4 — INVESTMENT
+           ══════════════════════════════════════ */
+        .investment-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .invest-card {
+            border: 1px solid var(--gold-border);
+            padding: clamp(2rem, 4vw, 3rem);
+            text-align: center;
+            position: relative;
+        }
+
+        .invest-card-label {
+            font-family: var(--font-body);
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .invest-card-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.15rem, 2vw, 1.4rem);
+            color: var(--white);
+            margin-bottom: 1.5rem;
+        }
+
+        .invest-price {
+            font-family: var(--font-display);
+            font-weight: 300;
+            font-variant-numeric: tabular-nums;
+            margin-bottom: 1.5rem;
+        }
+
+        .invest-price-currency {
+            font-size: clamp(1rem, 1.8vw, 1.2rem);
+            color: var(--gray);
+            vertical-align: top;
+            line-height: 1;
+        }
+
+        .invest-price-value {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            color: var(--gold);
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+
+        .invest-price-period {
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+            color: var(--gray);
+        }
+
+        .invest-card-note {
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            color: var(--gray);
+            line-height: 1.6;
+            border-top: 1px solid var(--gold-border);
+            padding-top: 1.25rem;
+        }
+
+        .dispatch-info {
+            margin-top: 2.5rem;
+            border: 1px solid var(--gold-border);
+            padding: clamp(1.5rem, 3vw, 2rem);
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .dispatch-icon {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            color: var(--gold);
+            margin-top: 0.2rem;
+        }
+
+        .dispatch-info-label {
+            font-family: var(--font-body);
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .dispatch-info p {
+            font-size: 0.85rem;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        .dispatch-price {
+            color: var(--white);
+            font-weight: 400;
+        }
+
+        /* ══════════════════════════════════════
+           SECTION 5 — BONUS
+           ══════════════════════════════════════ */
+        .bonus-card {
+            border: 1px solid var(--gold);
+            padding: clamp(2.5rem, 5vw, 3.5rem);
+            text-align: center;
+            position: relative;
+            animation: border-pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes border-pulse {
+            0%, 100% { border-color: rgba(201, 169, 110, 0.3); }
+            50% { border-color: rgba(201, 169, 110, 0.85); }
+        }
+
+        .bonus-badge {
+            font-family: var(--font-body);
+            font-size: 0.6rem;
+            font-weight: 500;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--bg);
+            background: var(--gold);
+            display: inline-block;
+            padding: 0.35rem 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .bonus-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            color: var(--white);
+            margin-bottom: 0.75rem;
+            line-height: 1.35;
+        }
+
+        .bonus-value {
+            font-family: var(--font-display);
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            color: var(--gold);
+            font-style: italic;
+            margin-bottom: 1.25rem;
+        }
+
+        .bonus-note {
+            font-size: 0.85rem;
+            color: var(--gray);
+            max-width: 540px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* ══════════════════════════════════════
+           SECTION 6 — NEXT STEPS
+           ══════════════════════════════════════ */
+        .timeline {
+            margin-top: 3rem;
+            max-width: 600px;
+            position: relative;
+            padding-left: 2.5rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 8px;
+            bottom: 8px;
+            width: 1px;
+            background: var(--gold-border);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2.5rem;
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -2.5rem;
+            top: 6px;
+            width: 15px;
+            height: 15px;
+            border: 1.5px solid var(--gold);
+            background: var(--bg-alt);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .timeline-dot::after {
+            content: '';
+            width: 5px;
+            height: 5px;
+            background: var(--gold);
+        }
+
+        .timeline-step {
+            font-family: var(--font-body);
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.35rem;
+        }
+
+        .timeline-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+            color: var(--white);
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+        }
+
+        .timeline-desc {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .cta-wrap {
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .cta-button {
+            font-family: var(--font-display);
+            font-size: clamp(1rem, 1.8vw, 1.15rem);
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            color: var(--gold);
+            background: none;
+            border: 1px solid var(--gold);
+            padding: 1rem 2.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .cta-button:hover {
+            background-color: var(--gold);
+            color: var(--bg);
+        }
+
+        .cta-button:focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 3px;
+        }
+
+        /* ══════════════════════════════════════
+           FOOTER
+           ══════════════════════════════════════ */
+        .main-footer {
+            background: #070707;
+            border-top: 1px solid var(--gold-border);
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .footer-brand {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: var(--gold);
+            letter-spacing: 0.15em;
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-validity {
+            font-size: 0.75rem;
+            color: var(--gray-muted);
+            letter-spacing: 0.1em;
+        }
+
+        .footer-date {
+            font-size: 0.7rem;
+            color: var(--gray-muted);
+            margin-top: 0.3rem;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ══════════════════════════════════════
+           RESPONSIVE
+           ══════════════════════════════════════ */
+        @media (max-width: 768px) {
+            .problems-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .solution-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .solution-card-desc {
+                max-height: none;
+                opacity: 1;
+            }
+
+            .solution-card-desc p {
+                padding-left: 0;
+            }
+
+            .investment-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .dispatch-info {
+                flex-direction: column;
+            }
+
+            .brand-name {
+                letter-spacing: 0.12em;
+            }
+
+            .timeline {
+                padding-left: 2rem;
+            }
+
+            .timeline::before {
+                left: 5px;
+            }
+
+            .timeline-dot {
+                left: -2rem;
+                width: 12px;
+                height: 12px;
+            }
+
+            .timeline-dot::after {
+                width: 4px;
+                height: 4px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cover {
+                padding: 1.5rem;
+            }
+
+            .cta-button {
+                width: 100%;
+            }
+        }
+
+        /* ══════════════════════════════════════
+           REDUCED MOTION
+           ══════════════════════════════════════ */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            html {
+                scroll-behavior: auto;
+            }
+
+            .reveal {
+                opacity: 1;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ════════════════════════════════════
+         SECTION 1 — COVER
+         ════════════════════════════════════ -->
+    <section class="cover" aria-label="Capa da proposta">
+        <div class="cover-content">
+            <p class="cover-pre reveal">Proposta Comercial</p>
+            <h1 class="brand-name reveal reveal-delay-1">Morana Joias</h1>
+            <div class="cover-line reveal reveal-delay-2" role="presentation"></div>
+            <p class="tagline reveal reveal-delay-3">&ldquo;Sua joia merece uma opera&ccedil;&atilde;o &agrave; altura da sua beleza.&rdquo;</p>
+        </div>
+        <footer class="cover-footer reveal reveal-delay-4">
+            <span>Uma proposta</span>
+            <span class="cover-footer-brand">Aios</span>
+        </footer>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════
+         SECTION 2 — PROBLEMS
+         ════════════════════════════════════ -->
+    <section class="section section--alt" aria-labelledby="problems-heading">
+        <div class="container">
+            <p class="section-label reveal">O&nbsp;Diagn&oacute;stico</p>
+            <h2 id="problems-heading" class="reveal reveal-delay-1">O problema que resolvemos</h2>
+
+            <div class="problems-grid">
+                <article class="problem-card reveal reveal-delay-1">
+                    <div class="problem-number">01</div>
+                    <h3>Perda de clientes VIP por falta de follow-up</h3>
+                    <p>Sem um sistema inteligente de acompanhamento, clientes de alto valor simplesmente desaparecem ap&oacute;s a primeira compra &mdash; levando consigo todo o potencial de recorr&ecirc;ncia.</p>
+                </article>
+
+                <article class="problem-card reveal reveal-delay-2">
+                    <div class="problem-number">02</div>
+                    <h3>WhatsApp desorganizado entre vendedoras e ger&ecirc;ncia</h3>
+                    <p>Conversas perdidas, respostas duplicadas, clientes sem retorno. Quando o atendimento depende da mem&oacute;ria individual, a experi&ecirc;ncia da marca sofre.</p>
+                </article>
+
+                <article class="problem-card reveal reveal-delay-3">
+                    <div class="problem-number">03</div>
+                    <h3>Nenhuma rastreabilidade de hist&oacute;rico e prefer&ecirc;ncias</h3>
+                    <p>Sem registro centralizado, &eacute; imposs&iacute;vel personalizar o atendimento &mdash; e no mercado de joias de alto padr&atilde;o, personaliza&ccedil;&atilde;o &eacute; tudo.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════
+         SECTION 3 — SOLUTION
+         ════════════════════════════════════ -->
+    <section class="section" aria-labelledby="solution-heading">
+        <div class="container">
+            <div class="solution-header">
+                <p class="section-label reveal">A&nbsp;Solu&ccedil;&atilde;o</p>
+                <h2 id="solution-heading" class="reveal reveal-delay-1">Aios CRM</h2>
+                <p class="section-subtitle reveal reveal-delay-2">Uma plataforma de intelig&ecirc;ncia comercial pensada para o seu atendimento de alta joalheria.</p>
+            </div>
+
+            <div class="solution-grid reveal reveal-delay-3">
+                <!-- 1 — IA -->
+                <div class="solution-card">
+                    <div class="solution-card-header">
+                        <svg class="solution-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5Z"/>
+                            <path d="M19 14l.75 2.25L22 17l-2.25.75L19 20l-.75-2.25L16 17l2.25-.75Z"/>
+                        </svg>
+                        <span class="solution-card-title">IA de Atendimento 24h</span>
+                    </div>
+                    <div class="solution-card-desc">
+                        <p>&ldquo;Sua vendedora mais dedicada nunca dorme. Responde, qualifica e encaminha clientes no seu tom de marca, a qualquer hora.&rdquo;</p>
+                    </div>
+                </div>
+
+                <!-- 2 — WhatsApp -->
+                <div class="solution-card">
+                    <div class="solution-card-header">
+                        <svg class="solution-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <rect x="5" y="2" width="14" height="20" rx="2"/>
+                            <line x1="12" y1="18" x2="12" y2="18" stroke-linecap="round" stroke-width="2"/>
+                        </svg>
+                        <span class="solution-card-title">2&nbsp;Canais WhatsApp Unificados</span>
+                    </div>
+                    <div class="solution-card-desc">
+                        <p>&ldquo;Todas as conversas de todas as vendedoras em um &uacute;nico painel. Sem perda, sem confus&atilde;o.&rdquo;</p>
+                    </div>
+                </div>
+
+                <!-- 3 — Users -->
+                <div class="solution-card">
+                    <div class="solution-card-header">
+                        <svg class="solution-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="9" cy="7" r="3.5"/>
+                            <path d="M2 21v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1"/>
+                            <circle cx="18" cy="8.5" r="2.5"/>
+                            <path d="M22 21v-1a3.5 3.5 0 0 0-2.5-3.4"/>
+                        </svg>
+                        <span class="solution-card-title">6&nbsp;Usu&aacute;rios Simult&acirc;neos</span>
+                    </div>
+                    <div class="solution-card-desc">
+                        <p>&ldquo;Do atendimento ao p&oacute;s-venda, toda equipe conectada com vis&atilde;o compartilhada de cada cliente.&rdquo;</p>
+                    </div>
+                </div>
+
+                <!-- 4 — Kanban -->
+                <div class="solution-card">
+                    <div class="solution-card-header">
+                        <svg class="solution-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <rect x="3" y="3" width="5" height="13" rx="1"/>
+                            <rect x="10" y="3" width="5" height="8" rx="1"/>
+                            <rect x="17" y="3" width="5" height="18" rx="1"/>
+                        </svg>
+                        <span class="solution-card-title">Funil Kanban de Vendas</span>
+                    </div>
+                    <div class="solution-card-desc">
+                        <p>&ldquo;Visualize onde cada cliente VIP est&aacute; na jornada de compra. Da descoberta ao fechamento.&rdquo;</p>
+                    </div>
+                </div>
+
+                <!-- 5 — Tags -->
+                <div class="solution-card">
+                    <div class="solution-card-header">
+                        <svg class="solution-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M11 2H4a2 2 0 0 0-2 2v7l10 10 9-9L11 2Z"/>
+                            <circle cx="7" cy="7" r="1.5"/>
+                        </svg>
+                        <span class="solution-card-title">Organiza&ccedil;&atilde;o por Etiquetas</span>
+                    </div>
+                    <div class="solution-card-desc">
+                        <p>&ldquo;Segmente sua carteira: cliente novo, recorrente, aniversariante, interesse em alian&ccedil;as, cole&ccedil;&atilde;o espec&iacute;fica.&rdquo;</p>
+                    </div>
+                </div>
+
+                <!-- 6 — Campaigns -->
+                <div class="solution-card">
+                    <div class="solution-card-header">
+                        <svg class="solution-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M22 2L11 13"/>
+                            <path d="M22 2l-7 20-4-9-9-4Z"/>
+                        </svg>
+                        <span class="solution-card-title">Disparo por Etiquetas e Sequ&ecirc;ncias</span>
+                    </div>
+                    <div class="solution-card-desc">
+                        <p>&ldquo;Envie campanhas cir&uacute;rgicas para o grupo certo, na hora certa. N&atilde;o &eacute; spam &mdash; &eacute; relacionamento.&rdquo;</p>
+                    </div>
+                </div>
+
+                <!-- 7 — Scheduled -->
+                <div class="solution-card">
+                    <div class="solution-card-header">
+                        <svg class="solution-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 6v6l4 2"/>
+                        </svg>
+                        <span class="solution-card-title">Mensagens Agendadas</span>
+                    </div>
+                    <div class="solution-card-desc">
+                        <p>&ldquo;Agende parabeniza&ccedil;&atilde;o de anivers&aacute;rio, follow-up p&oacute;s-venda e novidades de cole&ccedil;&atilde;o. Tudo autom&aacute;tico, tudo no tom certo.&rdquo;</p>
+                    </div>
+                </div>
+
+                <!-- 8 — Reports -->
+                <div class="solution-card">
+                    <div class="solution-card-header">
+                        <svg class="solution-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <line x1="18" y1="20" x2="18" y2="10"/>
+                            <line x1="12" y1="20" x2="12" y2="4"/>
+                            <line x1="6" y1="20" x2="6" y2="14"/>
+                        </svg>
+                        <span class="solution-card-title">Relat&oacute;rios de Atendimento e Convers&atilde;o</span>
+                    </div>
+                    <div class="solution-card-desc">
+                        <p>&ldquo;Saiba quais vendedoras convertem mais, quais mensagens funcionam e onde os clientes desaparecem.&rdquo;</p>
+                    </div>
+                </div>
+
+                <!-- 9 — CRM Manager -->
+                <div class="solution-card">
+                    <div class="solution-card-header">
+                        <svg class="solution-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
+                            <path d="M16 11l2 2 4-4"/>
+                        </svg>
+                        <span class="solution-card-title">Gestor de CRM incluso por 2&nbsp;meses</span>
+                    </div>
+                    <div class="solution-card-desc">
+                        <p>&ldquo;Especialista dedicado nos primeiros 2 meses para configurar, treinar e otimizar tudo para o seu neg&oacute;cio.&rdquo;</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════
+         SECTION 4 — INVESTMENT
+         ════════════════════════════════════ -->
+    <section class="section section--alt" aria-labelledby="investment-heading">
+        <div class="container">
+            <p class="section-label reveal">Investimento</p>
+            <h2 id="investment-heading" class="reveal reveal-delay-1">Seu investimento</h2>
+
+            <div class="investment-cards">
+                <article class="invest-card reveal reveal-delay-2">
+                    <p class="invest-card-label">Implementa&ccedil;&atilde;o</p>
+                    <h3 class="invest-card-title">Setup &amp;&nbsp;Personaliza&ccedil;&atilde;o</h3>
+                    <div class="invest-price">
+                        <span class="invest-price-currency">R$&nbsp;</span>
+                        <span class="invest-price-value">3.000</span>
+                    </div>
+                    <p class="invest-card-note">Configura&ccedil;&atilde;o completa, treinamento da equipe, personaliza&ccedil;&atilde;o de fluxos e identidade da marca na plataforma. Pagamento &uacute;nico.</p>
+                </article>
+
+                <article class="invest-card reveal reveal-delay-3">
+                    <p class="invest-card-label">Opera&ccedil;&atilde;o Cont&iacute;nua</p>
+                    <h3 class="invest-card-title">Mensalidade</h3>
+                    <div class="invest-price">
+                        <span class="invest-price-currency">R$&nbsp;</span>
+                        <span class="invest-price-value">1.700</span>
+                        <span class="invest-price-period">&thinsp;/m&ecirc;s</span>
+                    </div>
+                    <p class="invest-card-note">Plataforma ativa, 6 usu&aacute;rios, 2 canais WhatsApp, IA de atendimento, suporte e atualiza&ccedil;&otilde;es.</p>
+                </article>
+            </div>
+
+            <div class="dispatch-info reveal reveal-delay-4">
+                <svg class="dispatch-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="12" y1="8" x2="12" y2="12"/>
+                    <line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+                <div>
+                    <p class="dispatch-info-label">Custo de Disparo</p>
+                    <p><span class="dispatch-price">R$&nbsp;0,33 por mensagem</span> via API Oficial (Meta). O custo de disparo &eacute; cobrado diretamente pela Meta/WhatsApp Business API &mdash; n&atilde;o &eacute; margem da Aios. A cobran&ccedil;a ocorre apenas em mensagens ativas (campanhas e reativa&ccedil;&otilde;es). Conversas iniciadas pelo cliente s&atilde;o gratuitas nas primeiras 24h.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════
+         SECTION 5 — BONUS
+         ════════════════════════════════════ -->
+    <section class="section" aria-labelledby="bonus-heading">
+        <div class="container">
+            <div class="bonus-card reveal">
+                <span class="bonus-badge">B&ocirc;nus Exclusivo</span>
+                <h2 id="bonus-heading" class="bonus-title">Gestor de CRM incluso gratuitamente nos primeiros 2&nbsp;meses</h2>
+                <p class="bonus-value">Equivalente a R$&nbsp;800/m&ecirc;s</p>
+                <p class="bonus-note">Para garantir que cada recurso seja configurado sob medida para o segmento de joias. Configura&ccedil;&atilde;o de fluxos, treinamento personalizado e otimiza&ccedil;&atilde;o cont&iacute;nua com um especialista dedicado.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ════════════════════════════════════
+         SECTION 6 — NEXT STEPS
+         ════════════════════════════════════ -->
+    <section class="section section--alt" aria-labelledby="steps-heading">
+        <div class="container">
+            <p class="section-label reveal">Pr&oacute;ximos Passos</p>
+            <h2 id="steps-heading" class="reveal reveal-delay-1">Como come&ccedil;amos</h2>
+
+            <div class="timeline">
+                <div class="timeline-item reveal reveal-delay-1">
+                    <div class="timeline-dot" aria-hidden="true"></div>
+                    <p class="timeline-step">Etapa 01</p>
+                    <h3 class="timeline-title">Contrato assinado &amp;&nbsp;pagamento da implementa&ccedil;&atilde;o</h3>
+                    <p class="timeline-desc">Formaliza&ccedil;&atilde;o da parceria e in&iacute;cio imediato do planejamento.</p>
+                </div>
+
+                <div class="timeline-item reveal reveal-delay-2">
+                    <div class="timeline-dot" aria-hidden="true"></div>
+                    <p class="timeline-step">Etapa 02</p>
+                    <h3 class="timeline-title">Kickoff &amp;&nbsp;setup t&eacute;cnico</h3>
+                    <p class="timeline-desc">Call de onboarding (1h) + configura&ccedil;&atilde;o completa da plataforma em at&eacute; 3&nbsp;dias &uacute;teis.</p>
+                </div>
+
+                <div class="timeline-item reveal reveal-delay-3">
+                    <div class="timeline-dot" aria-hidden="true"></div>
+                    <p class="timeline-step">Etapa 03</p>
+                    <h3 class="timeline-title">Treinamento da equipe &amp;&nbsp;go-live</h3>
+                    <p class="timeline-desc">Treinamento pr&aacute;tico com toda a equipe e ativa&ccedil;&atilde;o completa da opera&ccedil;&atilde;o.</p>
+                </div>
+            </div>
+
+            <div class="cta-wrap reveal">
+                <button type="button" class="cta-button" aria-label="Iniciar proposta comercial">Quero come&ccedil;ar minha proposta</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════
+         FOOTER
+         ════════════════════════════════════ -->
+    <footer class="main-footer" role="contentinfo">
+        <div class="container">
+            <p class="footer-brand">Aios</p>
+            <p class="footer-validity">Proposta v&aacute;lida por 15 dias</p>
+            <p class="footer-date" id="footerDate"></p>
+        </div>
+    </footer>
+
+    <script>
+        /* ══════════════════════════════════════
+           INTERSECTION OBSERVER — REVEAL
+           ══════════════════════════════════════ */
+        (function () {
+            var elements = document.querySelectorAll('.reveal');
+            if (!('IntersectionObserver' in window)) {
+                elements.forEach(function (el) { el.classList.add('revealed'); });
+                return;
+            }
+
+            var observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.15,
+                rootMargin: '0px 0px -40px 0px'
+            });
+
+            elements.forEach(function (el) { observer.observe(el); });
+        })();
+
+        /* ══════════════════════════════════════
+           FOOTER DATE
+           ══════════════════════════════════════ */
+        (function () {
+            var el = document.getElementById('footerDate');
+            if (!el) return;
+            var d = new Date();
+            var formatted = d.toLocaleDateString('pt-BR', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+            el.textContent = formatted;
+        })();
+    </script>
+</body>
+</html>
