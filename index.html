@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#0A0A0A">
     <meta name="color-scheme" content="dark">
-    <title>Proposta Comercial &mdash; Morana Joias &times; Aios</title>
+    <title>Proposta Comercial — Morana Joias × Aios</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
@@ -42,11 +42,13 @@
            ══════════════════════════════════════ */
         :root {
             --bg: #0A0A0A;
-            --bg-alt: #0F0F0F;
+            --bg-alt: #0E0E0E;
             --bg-card: #111111;
+            --bg-card-hover: #151513;
             --gold: #C9A96E;
-            --gold-dim: rgba(201, 169, 110, 0.12);
-            --gold-border: rgba(201, 169, 110, 0.2);
+            --gold-light: #E8D5A8;
+            --gold-dim: rgba(201, 169, 110, 0.10);
+            --gold-border: rgba(201, 169, 110, 0.18);
             --gold-glow: rgba(201, 169, 110, 0.06);
             --white: #F5F5F5;
             --gray: #8C7B5E;
@@ -55,6 +57,20 @@
             --font-body: 'Inter', system-ui, sans-serif;
             --container: 1080px;
             --section-pad: clamp(5rem, 12vw, 9rem);
+        }
+
+        /* ══════════════════════════════════════
+           SCROLL PROGRESS
+           ══════════════════════════════════════ */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: var(--gold);
+            z-index: 100;
+            pointer-events: none;
         }
 
         /* ══════════════════════════════════════
@@ -78,9 +94,7 @@
             font-weight: 500;
         }
 
-        p {
-            text-wrap: pretty;
-        }
+        p { text-wrap: pretty; }
 
         /* ══════════════════════════════════════
            LAYOUT
@@ -97,9 +111,7 @@
             scroll-margin-top: 2rem;
         }
 
-        .section--alt {
-            background-color: var(--bg-alt);
-        }
+        .section--alt { background-color: var(--bg-alt); }
 
         .section-label {
             font-family: var(--font-body);
@@ -109,6 +121,18 @@
             text-transform: uppercase;
             color: var(--gold);
             margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-label::before {
+            content: '';
+            display: block;
+            width: 24px;
+            height: 1px;
+            background: var(--gold);
+            flex-shrink: 0;
         }
 
         .section-subtitle {
@@ -121,12 +145,31 @@
             line-height: 1.6;
         }
 
-        .divider {
-            width: 50px;
+        /* ══════════════════════════════════════
+           ORNAMENTAL DIVIDER
+           ══════════════════════════════════════ */
+        .ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            padding: 0.25rem 0;
+        }
+
+        .ornament-line {
+            width: 40px;
             height: 1px;
             background: var(--gold);
-            opacity: 0.35;
-            margin: 0 auto;
+            opacity: 0.3;
+        }
+
+        .ornament-diamond {
+            width: 5px;
+            height: 5px;
+            background: var(--gold);
+            transform: rotate(45deg);
+            opacity: 0.45;
+            flex-shrink: 0;
         }
 
         /* ══════════════════════════════════════
@@ -135,23 +178,72 @@
         .reveal {
             opacity: 0;
             transform: translateY(28px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
+            transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1), transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        .reveal.revealed {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .reveal.revealed { opacity: 1; transform: translateY(0); }
 
         .reveal-delay-1 { transition-delay: 0.1s; }
         .reveal-delay-2 { transition-delay: 0.2s; }
         .reveal-delay-3 { transition-delay: 0.3s; }
-        .reveal-delay-4 { transition-delay: 0.35s; }
-        .reveal-delay-5 { transition-delay: 0.4s; }
-        .reveal-delay-6 { transition-delay: 0.45s; }
-        .reveal-delay-7 { transition-delay: 0.5s; }
-        .reveal-delay-8 { transition-delay: 0.55s; }
-        .reveal-delay-9 { transition-delay: 0.6s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+        .reveal-delay-5 { transition-delay: 0.5s; }
+        .reveal-delay-6 { transition-delay: 0.55s; }
+        .reveal-delay-7 { transition-delay: 0.6s; }
+        .reveal-delay-8 { transition-delay: 0.65s; }
+        .reveal-delay-9 { transition-delay: 0.7s; }
+
+        /* ══════════════════════════════════════
+           COVER — PARTICLES
+           ══════════════════════════════════════ */
+        .particles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .particles span {
+            position: absolute;
+            bottom: -10px;
+            left: var(--x);
+            width: var(--s);
+            height: var(--s);
+            background: var(--gold);
+            transform: rotate(45deg);
+            opacity: 0;
+            animation: particle-float var(--t) var(--d) ease-in-out infinite;
+        }
+
+        @keyframes particle-float {
+            0%   { transform: rotate(45deg) translateY(0); opacity: 0; }
+            8%   { opacity: 0.45; }
+            92%  { opacity: 0.1; }
+            100% { transform: rotate(45deg) translateY(calc(-100dvh - 40px)); opacity: 0; }
+        }
+
+        /* ══════════════════════════════════════
+           COVER — SHIMMER TEXT
+           ══════════════════════════════════════ */
+        .shimmer {
+            background: linear-gradient(
+                110deg,
+                var(--gold) 0%,
+                var(--gold-light) 18%,
+                var(--gold) 36%,
+                var(--gold) 100%
+            );
+            background-size: 250% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: text-shimmer 6s ease-in-out infinite;
+        }
+
+        @keyframes text-shimmer {
+            0%, 100% { background-position: 0% center; }
+            50%      { background-position: 100% center; }
+        }
 
         /* ══════════════════════════════════════
            SECTION 1 — COVER
@@ -180,14 +272,13 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: radial-gradient(ellipse at 50% 40%, rgba(201, 169, 110, 0.05) 0%, transparent 65%);
+            background:
+                radial-gradient(ellipse at 50% 35%, rgba(201, 169, 110, 0.07) 0%, transparent 55%),
+                radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(0, 0, 0, 0.5) 100%);
             pointer-events: none;
         }
 
-        .cover-content {
-            position: relative;
-            z-index: 1;
-        }
+        .cover-content { position: relative; z-index: 2; }
 
         .cover-pre {
             font-family: var(--font-body);
@@ -205,15 +296,29 @@
             font-weight: 300;
             letter-spacing: 0.25em;
             text-transform: uppercase;
-            color: var(--white);
             line-height: 1.1;
         }
 
-        .cover-line {
-            width: 50px;
+        .cover-ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin: 2.5rem auto;
+        }
+
+        .cover-ornament .line {
+            width: 60px;
             height: 1px;
             background: var(--gold);
-            margin: 2rem auto;
+            opacity: 0.5;
+        }
+
+        .cover-ornament .diamond {
+            width: 7px;
+            height: 7px;
+            border: 1px solid var(--gold);
+            transform: rotate(45deg);
             opacity: 0.6;
         }
 
@@ -233,7 +338,7 @@
             bottom: 2.5rem;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 1;
+            z-index: 2;
             text-align: center;
         }
 
@@ -253,6 +358,56 @@
             margin-top: 0.25rem;
         }
 
+        .scroll-hint {
+            position: absolute;
+            bottom: 6.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            color: var(--gold);
+            opacity: 0.4;
+            animation: hint-bounce 2.5s ease-in-out infinite;
+        }
+
+        @keyframes hint-bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.4; }
+            50%      { transform: translateX(-50%) translateY(8px); opacity: 0.7; }
+        }
+
+        /* ══════════════════════════════════════
+           CARD CORNER BRACKETS
+           ══════════════════════════════════════ */
+        .fancy-card {
+            position: relative;
+        }
+
+        .fancy-card::before,
+        .fancy-card::after {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            border-color: var(--gold);
+            border-style: solid;
+            opacity: 0.4;
+            transition: opacity 0.3s ease;
+        }
+
+        .fancy-card::before {
+            top: -1px; left: -1px;
+            border-width: 1px 0 0 1px;
+        }
+
+        .fancy-card::after {
+            bottom: -1px; right: -1px;
+            border-width: 0 1px 1px 0;
+        }
+
+        .fancy-card:hover::before,
+        .fancy-card:hover::after {
+            opacity: 0.85;
+        }
+
         /* ══════════════════════════════════════
            SECTION 2 — PROBLEMS
            ══════════════════════════════════════ */
@@ -266,7 +421,14 @@
         .problem-card {
             border: 1px solid var(--gold-border);
             padding: clamp(1.5rem, 3vw, 2.5rem);
-            position: relative;
+            background: var(--bg-card);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(201, 169, 110, 0.06);
+            border-color: rgba(201, 169, 110, 0.35);
         }
 
         .problem-number {
@@ -274,11 +436,13 @@
             font-size: clamp(2.5rem, 5vw, 3.5rem);
             font-weight: 300;
             color: var(--gold);
-            opacity: 0.35;
+            opacity: 0.3;
             line-height: 1;
             margin-bottom: 1rem;
             font-variant-numeric: tabular-nums;
         }
+
+        .problem-card:hover .problem-number { opacity: 0.6; }
 
         .problem-card h3 {
             font-size: clamp(1rem, 1.6vw, 1.15rem);
@@ -295,9 +459,7 @@
         /* ══════════════════════════════════════
            SECTION 3 — SOLUTION
            ══════════════════════════════════════ */
-        .solution-header {
-            margin-bottom: 3.5rem;
-        }
+        .solution-header { margin-bottom: 3.5rem; }
 
         .solution-grid {
             display: grid;
@@ -310,12 +472,20 @@
         .solution-card {
             background: var(--bg);
             padding: clamp(1.5rem, 3vw, 2rem);
-            transition: background-color 0.2s ease;
+            transition: background-color 0.3s ease;
             cursor: default;
+            position: relative;
         }
 
-        .solution-card:focus-within {
-            background-color: var(--bg-card);
+        .solution-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 0;
+            background: var(--gold);
+            transition: width 0.3s ease;
         }
 
         .solution-card-header {
@@ -330,6 +500,7 @@
             height: 28px;
             color: var(--gold);
             margin-top: 0.1rem;
+            transition: transform 0.3s ease;
         }
 
         .solution-card-title {
@@ -341,11 +512,8 @@
         }
 
         .solution-card-desc {
-            max-height: 0;
-            opacity: 0;
             overflow: hidden;
-            transition: max-height 0.35s ease, opacity 0.25s ease;
-            margin-top: 0;
+            transition: opacity 0.3s ease;
         }
 
         .solution-card-desc p {
@@ -356,26 +524,31 @@
             line-height: 1.6;
             padding-top: 0.85rem;
             padding-left: calc(28px + 0.85rem);
+            opacity: 0.55;
+            transition: opacity 0.3s ease;
         }
 
         @media (hover: hover) {
             .solution-card:hover {
-                background-color: var(--bg-card);
+                background-color: var(--bg-card-hover);
             }
 
-            .solution-card:hover .solution-card-desc {
-                max-height: 8em;
+            .solution-card:hover::before {
+                width: 3px;
+            }
+
+            .solution-card:hover .solution-icon {
+                transform: scale(1.12);
+            }
+
+            .solution-card:hover .solution-card-desc p {
                 opacity: 1;
             }
         }
 
         @media (hover: none) {
-            .solution-card-desc {
-                max-height: none;
-                opacity: 1;
-            }
-
             .solution-card-desc p {
+                opacity: 1;
                 padding-left: 0;
             }
         }
@@ -394,7 +567,14 @@
             border: 1px solid var(--gold-border);
             padding: clamp(2rem, 4vw, 3rem);
             text-align: center;
-            position: relative;
+            background: var(--bg-card);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .invest-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(201, 169, 110, 0.07);
+            border-color: rgba(201, 169, 110, 0.4);
         }
 
         .invest-card-label {
@@ -419,6 +599,25 @@
             font-weight: 300;
             font-variant-numeric: tabular-nums;
             margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .invest-price::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(201, 169, 110, 0.12), transparent);
+            animation: price-shine 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes price-shine {
+            0%, 100% { left: -100%; }
+            50%       { left: 150%; }
         }
 
         .invest-price-currency {
@@ -456,6 +655,7 @@
             display: flex;
             align-items: flex-start;
             gap: 1rem;
+            background: var(--bg-card);
         }
 
         .dispatch-icon {
@@ -491,16 +691,34 @@
            SECTION 5 — BONUS
            ══════════════════════════════════════ */
         .bonus-card {
-            border: 1px solid var(--gold);
             padding: clamp(2.5rem, 5vw, 3.5rem);
             text-align: center;
             position: relative;
-            animation: border-pulse 4s ease-in-out infinite;
+            border: 1px solid rgba(201, 169, 110, 0.3);
+            background: var(--bg-card);
         }
 
-        @keyframes border-pulse {
-            0%, 100% { border-color: rgba(201, 169, 110, 0.3); }
-            50% { border-color: rgba(201, 169, 110, 0.85); }
+        .bonus-card::before {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border: 1px solid var(--gold);
+            opacity: 0;
+            animation: bonus-outer 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .bonus-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            box-shadow: inset 0 0 60px rgba(201, 169, 110, 0.04);
+            pointer-events: none;
+        }
+
+        @keyframes bonus-outer {
+            0%, 100% { opacity: 0; }
+            50%      { opacity: 0.5; }
         }
 
         .bonus-badge {
@@ -560,14 +778,23 @@
             background: var(--gold-border);
         }
 
+        .timeline-fill {
+            position: absolute;
+            left: 7px;
+            top: 8px;
+            width: 1px;
+            height: 0;
+            background: var(--gold);
+            opacity: 0.7;
+            transition: height 1s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
         .timeline-item {
             position: relative;
             padding-bottom: 2.5rem;
         }
 
-        .timeline-item:last-child {
-            padding-bottom: 0;
-        }
+        .timeline-item:last-child { padding-bottom: 0; }
 
         .timeline-dot {
             position: absolute;
@@ -587,6 +814,24 @@
             width: 5px;
             height: 5px;
             background: var(--gold);
+        }
+
+        .timeline-dot::before {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border: 1px solid var(--gold);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .timeline-item.revealed .timeline-dot::before {
+            animation: dot-pulse 2.5s ease-out 0.5s infinite;
+        }
+
+        @keyframes dot-pulse {
+            0%   { transform: scale(0.85); opacity: 0.5; }
+            100% { transform: scale(1.6); opacity: 0; }
         }
 
         .timeline-step {
@@ -612,6 +857,9 @@
             color: var(--gray);
         }
 
+        /* ══════════════════════════════════════
+           CTA BUTTON
+           ══════════════════════════════════════ */
         .cta-wrap {
             margin-top: 4rem;
             text-align: center;
@@ -627,17 +875,91 @@
             border: 1px solid var(--gold);
             padding: 1rem 2.5rem;
             cursor: pointer;
-            transition: background-color 0.2s ease, color 0.2s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: color 0.35s ease;
         }
 
-        .cta-button:hover {
-            background-color: var(--gold);
-            color: var(--bg);
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gold);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: -1;
         }
+
+        .cta-button:hover { color: var(--bg); }
+        .cta-button:hover::before { transform: scaleX(1); }
 
         .cta-button:focus-visible {
             outline: 2px solid var(--gold);
             outline-offset: 3px;
+        }
+
+        .cta-button svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        /* ══════════════════════════════════════
+           FLOATING WHATSAPP
+           ══════════════════════════════════════ */
+        .wa-float {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 52px;
+            height: 52px;
+            background: var(--bg);
+            border: 1px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            z-index: 50;
+            text-decoration: none;
+            transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+        }
+
+        .wa-float:hover {
+            background: var(--gold);
+            color: var(--bg);
+            transform: scale(1.08);
+        }
+
+        .wa-float:focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 3px;
+        }
+
+        .wa-float::after {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border: 1px solid var(--gold);
+            opacity: 0;
+            animation: wa-ring 3s ease-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes wa-ring {
+            0%   { transform: scale(0.9); opacity: 0.4; }
+            100% { transform: scale(1.35); opacity: 0; }
+        }
+
+        .wa-float svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
         }
 
         /* ══════════════════════════════════════
@@ -673,6 +995,13 @@
         }
 
         /* ══════════════════════════════════════
+           SECTION BACKGROUNDS
+           ══════════════════════════════════════ */
+        .section--pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='48' height='48' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M24 4L44 24L24 44L4 24Z' fill='none' stroke='%23C9A96E' stroke-width='0.3' opacity='0.035'/%3E%3C/svg%3E");
+        }
+
+        /* ══════════════════════════════════════
            RESPONSIVE
            ══════════════════════════════════════ */
         @media (max-width: 768px) {
@@ -685,14 +1014,12 @@
                 grid-template-columns: 1fr;
             }
 
-            .solution-card-desc {
-                max-height: none;
-                opacity: 1;
-            }
-
             .solution-card-desc p {
+                opacity: 1;
                 padding-left: 0;
             }
+
+            .solution-card::before { display: none; }
 
             .investment-cards {
                 grid-template-columns: 1fr;
@@ -710,7 +1037,8 @@
                 padding-left: 2rem;
             }
 
-            .timeline::before {
+            .timeline::before,
+            .timeline-fill {
                 left: 5px;
             }
 
@@ -724,16 +1052,20 @@
                 width: 4px;
                 height: 4px;
             }
+
+            .wa-float {
+                bottom: 1.25rem;
+                right: 1.25rem;
+                width: 46px;
+                height: 46px;
+            }
+
+            .particles span { display: none; }
         }
 
         @media (max-width: 480px) {
-            .cover {
-                padding: 1.5rem;
-            }
-
-            .cta-button {
-                width: 100%;
-            }
+            .cover { padding: 1.5rem; }
+            .cta-button { width: 100%; justify-content: center; }
         }
 
         /* ══════════════════════════════════════
@@ -745,87 +1077,115 @@
                 animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
             }
-
-            html {
-                scroll-behavior: auto;
-            }
-
-            .reveal {
-                opacity: 1;
-                transform: none;
+            html { scroll-behavior: auto; }
+            .reveal { opacity: 1; transform: none; }
+            .shimmer {
+                -webkit-text-fill-color: var(--gold);
+                animation: none;
             }
         }
     </style>
 </head>
 <body>
 
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" aria-hidden="true"></div>
+
     <!-- ════════════════════════════════════
          SECTION 1 — COVER
          ════════════════════════════════════ -->
     <section class="cover" aria-label="Capa da proposta">
+        <div class="particles" aria-hidden="true">
+            <span style="--x:8%;--d:0s;--t:14s;--s:3px"></span>
+            <span style="--x:22%;--d:3s;--t:11s;--s:4px"></span>
+            <span style="--x:38%;--d:1s;--t:16s;--s:2px"></span>
+            <span style="--x:52%;--d:5s;--t:13s;--s:3px"></span>
+            <span style="--x:67%;--d:2s;--t:15s;--s:4px"></span>
+            <span style="--x:82%;--d:4s;--t:12s;--s:2px"></span>
+            <span style="--x:15%;--d:7s;--t:17s;--s:3px"></span>
+            <span style="--x:92%;--d:6s;--t:14s;--s:2px"></span>
+        </div>
+
         <div class="cover-content">
             <p class="cover-pre reveal">Proposta Comercial</p>
-            <h1 class="brand-name reveal reveal-delay-1">Morana Joias</h1>
-            <div class="cover-line reveal reveal-delay-2" role="presentation"></div>
-            <p class="tagline reveal reveal-delay-3">&ldquo;Sua joia merece uma opera&ccedil;&atilde;o &agrave; altura da sua beleza.&rdquo;</p>
+            <h1 class="brand-name shimmer reveal reveal-delay-1">Morana Joias</h1>
+            <div class="cover-ornament reveal reveal-delay-2" role="presentation">
+                <span class="line"></span>
+                <span class="diamond"></span>
+                <span class="line"></span>
+            </div>
+            <p class="tagline reveal reveal-delay-3">&ldquo;Sua joia merece uma operação à altura da sua beleza.&rdquo;</p>
         </div>
+
+        <div class="scroll-hint reveal reveal-delay-4" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+
         <footer class="cover-footer reveal reveal-delay-4">
             <span>Uma proposta</span>
             <span class="cover-footer-brand">Aios</span>
         </footer>
     </section>
 
-    <div class="divider"></div>
+    <div class="ornament" aria-hidden="true">
+        <span class="ornament-line"></span>
+        <span class="ornament-diamond"></span>
+        <span class="ornament-line"></span>
+    </div>
 
     <!-- ════════════════════════════════════
          SECTION 2 — PROBLEMS
          ════════════════════════════════════ -->
     <section class="section section--alt" aria-labelledby="problems-heading">
         <div class="container">
-            <p class="section-label reveal">O&nbsp;Diagn&oacute;stico</p>
+            <p class="section-label reveal">O Diagnóstico</p>
             <h2 id="problems-heading" class="reveal reveal-delay-1">O problema que resolvemos</h2>
 
             <div class="problems-grid">
-                <article class="problem-card reveal reveal-delay-1">
+                <article class="problem-card fancy-card reveal reveal-delay-1">
                     <div class="problem-number">01</div>
                     <h3>Perda de clientes VIP por falta de follow-up</h3>
-                    <p>Sem um sistema inteligente de acompanhamento, clientes de alto valor simplesmente desaparecem ap&oacute;s a primeira compra &mdash; levando consigo todo o potencial de recorr&ecirc;ncia.</p>
+                    <p>Sem um sistema inteligente de acompanhamento, clientes de alto valor simplesmente desaparecem após a primeira compra — levando consigo todo o potencial de recorrência.</p>
                 </article>
 
-                <article class="problem-card reveal reveal-delay-2">
+                <article class="problem-card fancy-card reveal reveal-delay-2">
                     <div class="problem-number">02</div>
-                    <h3>WhatsApp desorganizado entre vendedoras e ger&ecirc;ncia</h3>
-                    <p>Conversas perdidas, respostas duplicadas, clientes sem retorno. Quando o atendimento depende da mem&oacute;ria individual, a experi&ecirc;ncia da marca sofre.</p>
+                    <h3>WhatsApp desorganizado entre vendedoras e gerência</h3>
+                    <p>Conversas perdidas, respostas duplicadas, clientes sem retorno. Quando o atendimento depende da memória individual, a experiência da marca sofre.</p>
                 </article>
 
-                <article class="problem-card reveal reveal-delay-3">
+                <article class="problem-card fancy-card reveal reveal-delay-3">
                     <div class="problem-number">03</div>
-                    <h3>Nenhuma rastreabilidade de hist&oacute;rico e prefer&ecirc;ncias</h3>
-                    <p>Sem registro centralizado, &eacute; imposs&iacute;vel personalizar o atendimento &mdash; e no mercado de joias de alto padr&atilde;o, personaliza&ccedil;&atilde;o &eacute; tudo.</p>
+                    <h3>Nenhuma rastreabilidade de histórico e preferências</h3>
+                    <p>Sem registro centralizado, é impossível personalizar o atendimento — e no mercado de joias de alto padrão, personalização é tudo.</p>
                 </article>
             </div>
         </div>
     </section>
 
-    <div class="divider"></div>
+    <div class="ornament" aria-hidden="true">
+        <span class="ornament-line"></span>
+        <span class="ornament-diamond"></span>
+        <span class="ornament-line"></span>
+    </div>
 
     <!-- ════════════════════════════════════
          SECTION 3 — SOLUTION
          ════════════════════════════════════ -->
-    <section class="section" aria-labelledby="solution-heading">
+    <section class="section section--pattern" aria-labelledby="solution-heading">
         <div class="container">
             <div class="solution-header">
-                <p class="section-label reveal">A&nbsp;Solu&ccedil;&atilde;o</p>
+                <p class="section-label reveal">A Solução</p>
                 <h2 id="solution-heading" class="reveal reveal-delay-1">Aios CRM</h2>
-                <p class="section-subtitle reveal reveal-delay-2">Uma plataforma de intelig&ecirc;ncia comercial pensada para o seu atendimento de alta joalheria.</p>
+                <p class="section-subtitle reveal reveal-delay-2">Uma plataforma de inteligência comercial pensada para o seu atendimento de alta joalheria.</p>
             </div>
 
-            <div class="solution-grid reveal reveal-delay-3">
+            <div class="solution-grid">
                 <!-- 1 — IA -->
-                <div class="solution-card">
+                <div class="solution-card reveal reveal-delay-1">
                     <div class="solution-card-header">
                         <svg class="solution-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <path d="M12 3l1.5 4.5L18 9l-4.5 1.5L12 15l-1.5-4.5L6 9l4.5-1.5Z"/>
+                            <path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5Z"/>
                             <path d="M19 14l.75 2.25L22 17l-2.25.75L19 20l-.75-2.25L16 17l2.25-.75Z"/>
                         </svg>
                         <span class="solution-card-title">IA de Atendimento 24h</span>
@@ -836,21 +1196,21 @@
                 </div>
 
                 <!-- 2 — WhatsApp -->
-                <div class="solution-card">
+                <div class="solution-card reveal reveal-delay-2">
                     <div class="solution-card-header">
                         <svg class="solution-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <rect x="5" y="2" width="14" height="20" rx="2"/>
+                            <rect x="6" y="1" width="12" height="22" rx="2"/>
                             <line x1="12" y1="18" x2="12" y2="18" stroke-linecap="round" stroke-width="2"/>
                         </svg>
-                        <span class="solution-card-title">2&nbsp;Canais WhatsApp Unificados</span>
+                        <span class="solution-card-title">2 Canais WhatsApp Unificados</span>
                     </div>
                     <div class="solution-card-desc">
-                        <p>&ldquo;Todas as conversas de todas as vendedoras em um &uacute;nico painel. Sem perda, sem confus&atilde;o.&rdquo;</p>
+                        <p>&ldquo;Todas as conversas de todas as vendedoras em um único painel. Sem perda, sem confusão.&rdquo;</p>
                     </div>
                 </div>
 
                 <!-- 3 — Users -->
-                <div class="solution-card">
+                <div class="solution-card reveal reveal-delay-3">
                     <div class="solution-card-header">
                         <svg class="solution-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             <circle cx="9" cy="7" r="3.5"/>
@@ -858,15 +1218,15 @@
                             <circle cx="18" cy="8.5" r="2.5"/>
                             <path d="M22 21v-1a3.5 3.5 0 0 0-2.5-3.4"/>
                         </svg>
-                        <span class="solution-card-title">6&nbsp;Usu&aacute;rios Simult&acirc;neos</span>
+                        <span class="solution-card-title">6 Usuários Simultâneos</span>
                     </div>
                     <div class="solution-card-desc">
-                        <p>&ldquo;Do atendimento ao p&oacute;s-venda, toda equipe conectada com vis&atilde;o compartilhada de cada cliente.&rdquo;</p>
+                        <p>&ldquo;Do atendimento ao pós-venda, toda equipe conectada com visão compartilhada de cada cliente.&rdquo;</p>
                     </div>
                 </div>
 
                 <!-- 4 — Kanban -->
-                <div class="solution-card">
+                <div class="solution-card reveal reveal-delay-4">
                     <div class="solution-card-header">
                         <svg class="solution-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             <rect x="3" y="3" width="5" height="13" rx="1"/>
@@ -876,40 +1236,57 @@
                         <span class="solution-card-title">Funil Kanban de Vendas</span>
                     </div>
                     <div class="solution-card-desc">
-                        <p>&ldquo;Visualize onde cada cliente VIP est&aacute; na jornada de compra. Da descoberta ao fechamento.&rdquo;</p>
+                        <p>&ldquo;Visualize onde cada cliente VIP está na jornada de compra. Da descoberta ao fechamento.&rdquo;</p>
                     </div>
                 </div>
 
                 <!-- 5 — Tags -->
-                <div class="solution-card">
+                <div class="solution-card reveal reveal-delay-5">
                     <div class="solution-card-header">
                         <svg class="solution-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             <path d="M11 2H4a2 2 0 0 0-2 2v7l10 10 9-9L11 2Z"/>
                             <circle cx="7" cy="7" r="1.5"/>
                         </svg>
-                        <span class="solution-card-title">Organiza&ccedil;&atilde;o por Etiquetas</span>
+                        <span class="solution-card-title">Organização por Etiquetas</span>
                     </div>
                     <div class="solution-card-desc">
-                        <p>&ldquo;Segmente sua carteira: cliente novo, recorrente, aniversariante, interesse em alian&ccedil;as, cole&ccedil;&atilde;o espec&iacute;fica.&rdquo;</p>
+                        <p>&ldquo;Segmente sua carteira: cliente novo, recorrente, aniversariante, interesse em alianças, coleção específica.&rdquo;</p>
                     </div>
                 </div>
 
-                <!-- 6 — Campaigns -->
-                <div class="solution-card">
+                <!-- 6 — Clusterização -->
+                <div class="solution-card reveal reveal-delay-6">
+                    <div class="solution-card-header">
+                        <svg class="solution-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="6" cy="6" r="3"/>
+                            <circle cx="18" cy="6" r="3"/>
+                            <circle cx="6" cy="18" r="3"/>
+                            <circle cx="18" cy="18" r="3"/>
+                            <path d="M9 6h6M6 9v6M18 9v6M9 18h6"/>
+                        </svg>
+                        <span class="solution-card-title">Clusterização da Base por Etiquetas</span>
+                    </div>
+                    <div class="solution-card-desc">
+                        <p>&ldquo;Para uso em disparo, relatórios e insights valiosos para recompra. Agrupe clientes por comportamento e maximize o valor de cada relacionamento.&rdquo;</p>
+                    </div>
+                </div>
+
+                <!-- 7 — Campaigns -->
+                <div class="solution-card reveal reveal-delay-7">
                     <div class="solution-card-header">
                         <svg class="solution-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             <path d="M22 2L11 13"/>
                             <path d="M22 2l-7 20-4-9-9-4Z"/>
                         </svg>
-                        <span class="solution-card-title">Disparo por Etiquetas e Sequ&ecirc;ncias</span>
+                        <span class="solution-card-title">Disparo por Etiquetas e Sequências</span>
                     </div>
                     <div class="solution-card-desc">
-                        <p>&ldquo;Envie campanhas cir&uacute;rgicas para o grupo certo, na hora certa. N&atilde;o &eacute; spam &mdash; &eacute; relacionamento.&rdquo;</p>
+                        <p>&ldquo;Envie campanhas cirúrgicas para o grupo certo, na hora certa. Não é spam — é relacionamento.&rdquo;</p>
                     </div>
                 </div>
 
                 <!-- 7 — Scheduled -->
-                <div class="solution-card">
+                <div class="solution-card reveal reveal-delay-7">
                     <div class="solution-card-header">
                         <svg class="solution-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             <circle cx="12" cy="12" r="10"/>
@@ -918,19 +1295,19 @@
                         <span class="solution-card-title">Mensagens Agendadas</span>
                     </div>
                     <div class="solution-card-desc">
-                        <p>&ldquo;Agende parabeniza&ccedil;&atilde;o de anivers&aacute;rio, follow-up p&oacute;s-venda e novidades de cole&ccedil;&atilde;o. Tudo autom&aacute;tico, tudo no tom certo.&rdquo;</p>
+                        <p>&ldquo;Agende parabenização de aniversário, follow-up pós-venda e novidades de coleção. Tudo automático, tudo no tom certo.&rdquo;</p>
                     </div>
                 </div>
 
                 <!-- 8 — Reports -->
-                <div class="solution-card">
+                <div class="solution-card reveal reveal-delay-8">
                     <div class="solution-card-header">
                         <svg class="solution-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             <line x1="18" y1="20" x2="18" y2="10"/>
                             <line x1="12" y1="20" x2="12" y2="4"/>
                             <line x1="6" y1="20" x2="6" y2="14"/>
                         </svg>
-                        <span class="solution-card-title">Relat&oacute;rios de Atendimento e Convers&atilde;o</span>
+                        <span class="solution-card-title">Relatórios de Atendimento e Conversão</span>
                     </div>
                     <div class="solution-card-desc">
                         <p>&ldquo;Saiba quais vendedoras convertem mais, quais mensagens funcionam e onde os clientes desaparecem.&rdquo;</p>
@@ -938,24 +1315,28 @@
                 </div>
 
                 <!-- 9 — CRM Manager -->
-                <div class="solution-card">
+                <div class="solution-card reveal reveal-delay-9">
                     <div class="solution-card-header">
                         <svg class="solution-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             <circle cx="9" cy="7" r="4"/>
                             <path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
                             <path d="M16 11l2 2 4-4"/>
                         </svg>
-                        <span class="solution-card-title">Gestor de CRM incluso por 2&nbsp;meses</span>
+                        <span class="solution-card-title">Gestor de CRM incluso por 2 meses</span>
                     </div>
                     <div class="solution-card-desc">
-                        <p>&ldquo;Especialista dedicado nos primeiros 2 meses para configurar, treinar e otimizar tudo para o seu neg&oacute;cio.&rdquo;</p>
+                        <p>&ldquo;Especialista dedicado nos primeiros 2 meses para configurar, treinar e otimizar tudo para o seu negócio.&rdquo;</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <div class="divider"></div>
+    <div class="ornament" aria-hidden="true">
+        <span class="ornament-line"></span>
+        <span class="ornament-diamond"></span>
+        <span class="ornament-line"></span>
+    </div>
 
     <!-- ════════════════════════════════════
          SECTION 4 — INVESTMENT
@@ -966,25 +1347,25 @@
             <h2 id="investment-heading" class="reveal reveal-delay-1">Seu investimento</h2>
 
             <div class="investment-cards">
-                <article class="invest-card reveal reveal-delay-2">
-                    <p class="invest-card-label">Implementa&ccedil;&atilde;o</p>
-                    <h3 class="invest-card-title">Setup &amp;&nbsp;Personaliza&ccedil;&atilde;o</h3>
+                <article class="invest-card fancy-card reveal reveal-delay-2">
+                    <p class="invest-card-label">Implementação</p>
+                    <h3 class="invest-card-title">Setup &amp; Personalização</h3>
                     <div class="invest-price">
-                        <span class="invest-price-currency">R$&nbsp;</span>
-                        <span class="invest-price-value">3.000</span>
+                        <span class="invest-price-currency">R$ </span>
+                        <span class="invest-price-value" data-target="3000">3.000</span>
                     </div>
-                    <p class="invest-card-note">Configura&ccedil;&atilde;o completa, treinamento da equipe, personaliza&ccedil;&atilde;o de fluxos e identidade da marca na plataforma. Pagamento &uacute;nico.</p>
+                    <p class="invest-card-note">Configuração completa, treinamento da equipe, personalização de fluxos e identidade da marca na plataforma. Pagamento único.</p>
                 </article>
 
-                <article class="invest-card reveal reveal-delay-3">
-                    <p class="invest-card-label">Opera&ccedil;&atilde;o Cont&iacute;nua</p>
+                <article class="invest-card fancy-card reveal reveal-delay-3">
+                    <p class="invest-card-label">Operação Contínua</p>
                     <h3 class="invest-card-title">Mensalidade</h3>
                     <div class="invest-price">
-                        <span class="invest-price-currency">R$&nbsp;</span>
-                        <span class="invest-price-value">1.700</span>
-                        <span class="invest-price-period">&thinsp;/m&ecirc;s</span>
+                        <span class="invest-price-currency">R$ </span>
+                        <span class="invest-price-value" data-target="1700">1.700</span>
+                        <span class="invest-price-period"> /mês</span>
                     </div>
-                    <p class="invest-card-note">Plataforma ativa, 6 usu&aacute;rios, 2 canais WhatsApp, IA de atendimento, suporte e atualiza&ccedil;&otilde;es.</p>
+                    <p class="invest-card-note">Plataforma ativa, 6 usuários, 2 canais WhatsApp, IA de atendimento, suporte e atualizações.</p>
                 </article>
             </div>
 
@@ -996,63 +1377,76 @@
                 </svg>
                 <div>
                     <p class="dispatch-info-label">Custo de Disparo</p>
-                    <p><span class="dispatch-price">R$&nbsp;0,33 por mensagem</span> via API Oficial (Meta). O custo de disparo &eacute; cobrado diretamente pela Meta/WhatsApp Business API &mdash; n&atilde;o &eacute; margem da Aios. A cobran&ccedil;a ocorre apenas em mensagens ativas (campanhas e reativa&ccedil;&otilde;es). Conversas iniciadas pelo cliente s&atilde;o gratuitas nas primeiras 24h.</p>
+                    <p><span class="dispatch-price">R$ 0,33 por mensagem</span> via API Oficial (Meta). O custo de disparo é cobrado diretamente pela Meta/WhatsApp Business API — não é margem da Aios. A cobrança ocorre apenas em mensagens ativas (campanhas e reativações). Conversas iniciadas pelo cliente são gratuitas nas primeiras 24h.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <div class="divider"></div>
+    <div class="ornament" aria-hidden="true">
+        <span class="ornament-line"></span>
+        <span class="ornament-diamond"></span>
+        <span class="ornament-line"></span>
+    </div>
 
     <!-- ════════════════════════════════════
          SECTION 5 — BONUS
          ════════════════════════════════════ -->
-    <section class="section" aria-labelledby="bonus-heading">
+    <section class="section section--pattern" aria-labelledby="bonus-heading">
         <div class="container">
             <div class="bonus-card reveal">
-                <span class="bonus-badge">B&ocirc;nus Exclusivo</span>
-                <h2 id="bonus-heading" class="bonus-title">Gestor de CRM incluso gratuitamente nos primeiros 2&nbsp;meses</h2>
-                <p class="bonus-value">Equivalente a R$&nbsp;800/m&ecirc;s</p>
-                <p class="bonus-note">Para garantir que cada recurso seja configurado sob medida para o segmento de joias. Configura&ccedil;&atilde;o de fluxos, treinamento personalizado e otimiza&ccedil;&atilde;o cont&iacute;nua com um especialista dedicado.</p>
+                <span class="bonus-badge">Bônus Exclusivo</span>
+                <h2 id="bonus-heading" class="bonus-title">Gestor de CRM incluso gratuitamente nos primeiros 2 meses</h2>
+                <p class="bonus-value">Equivalente a R$ 800/mês</p>
+                <p class="bonus-note">Para garantir que cada recurso seja configurado sob medida para o segmento de joias. Configuração de fluxos, treinamento personalizado e otimização contínua com um especialista dedicado.</p>
             </div>
         </div>
     </section>
 
-    <div class="divider"></div>
+    <div class="ornament" aria-hidden="true">
+        <span class="ornament-line"></span>
+        <span class="ornament-diamond"></span>
+        <span class="ornament-line"></span>
+    </div>
 
     <!-- ════════════════════════════════════
          SECTION 6 — NEXT STEPS
          ════════════════════════════════════ -->
     <section class="section section--alt" aria-labelledby="steps-heading">
         <div class="container">
-            <p class="section-label reveal">Pr&oacute;ximos Passos</p>
-            <h2 id="steps-heading" class="reveal reveal-delay-1">Como come&ccedil;amos</h2>
+            <p class="section-label reveal">Próximos Passos</p>
+            <h2 id="steps-heading" class="reveal reveal-delay-1">Como começamos</h2>
 
             <div class="timeline">
+                <div class="timeline-fill" aria-hidden="true"></div>
+
                 <div class="timeline-item reveal reveal-delay-1">
                     <div class="timeline-dot" aria-hidden="true"></div>
                     <p class="timeline-step">Etapa 01</p>
-                    <h3 class="timeline-title">Contrato assinado &amp;&nbsp;pagamento da implementa&ccedil;&atilde;o</h3>
-                    <p class="timeline-desc">Formaliza&ccedil;&atilde;o da parceria e in&iacute;cio imediato do planejamento.</p>
+                    <h3 class="timeline-title">Contrato assinado &amp; pagamento da implementação</h3>
+                    <p class="timeline-desc">Formalização da parceria e início imediato do planejamento.</p>
                 </div>
 
                 <div class="timeline-item reveal reveal-delay-2">
                     <div class="timeline-dot" aria-hidden="true"></div>
                     <p class="timeline-step">Etapa 02</p>
-                    <h3 class="timeline-title">Kickoff &amp;&nbsp;setup t&eacute;cnico</h3>
-                    <p class="timeline-desc">Call de onboarding (1h) + configura&ccedil;&atilde;o completa da plataforma em at&eacute; 3&nbsp;dias &uacute;teis.</p>
+                    <h3 class="timeline-title">Kickoff &amp; setup técnico</h3>
+                    <p class="timeline-desc">Call de onboarding (1h) + configuração completa da plataforma em até 3 dias úteis.</p>
                 </div>
 
                 <div class="timeline-item reveal reveal-delay-3">
                     <div class="timeline-dot" aria-hidden="true"></div>
                     <p class="timeline-step">Etapa 03</p>
-                    <h3 class="timeline-title">Treinamento da equipe &amp;&nbsp;go-live</h3>
-                    <p class="timeline-desc">Treinamento pr&aacute;tico com toda a equipe e ativa&ccedil;&atilde;o completa da opera&ccedil;&atilde;o.</p>
+                    <h3 class="timeline-title">Treinamento da equipe &amp; go-live</h3>
+                    <p class="timeline-desc">Treinamento prático com toda a equipe e ativação completa da operação.</p>
                 </div>
             </div>
 
             <div class="cta-wrap reveal">
-                <button type="button" class="cta-button" aria-label="Iniciar proposta comercial">Quero come&ccedil;ar minha proposta</button>
+                <a href="https://wa.me/351961342444?text=Ol%C3%A1!%20Tenho%20interesse%20na%20proposta%20da%20Aios%20para%20a%20Morana%20Joias." class="cta-button" target="_blank" rel="noopener noreferrer" aria-label="Iniciar conversa no WhatsApp">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+                    Quero começar minha proposta
+                </a>
             </div>
         </div>
     </section>
@@ -1063,19 +1457,24 @@
     <footer class="main-footer" role="contentinfo">
         <div class="container">
             <p class="footer-brand">Aios</p>
-            <p class="footer-validity">Proposta v&aacute;lida por 15 dias</p>
+            <p class="footer-validity">Proposta válida por 15 dias</p>
             <p class="footer-date" id="footerDate"></p>
         </div>
     </footer>
 
+    <!-- ════════════════════════════════════
+         FLOATING WHATSAPP
+         ════════════════════════════════════ -->
+    <a href="https://wa.me/351961342444?text=Ol%C3%A1!%20Tenho%20interesse%20na%20proposta%20da%20Aios%20para%20a%20Morana%20Joias." class="wa-float" target="_blank" rel="noopener noreferrer" aria-label="Conversar no WhatsApp">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+    </a>
+
     <script>
-        /* ══════════════════════════════════════
-           INTERSECTION OBSERVER — REVEAL
-           ══════════════════════════════════════ */
         (function () {
-            var elements = document.querySelectorAll('.reveal');
+            /* ══ INTERSECTION OBSERVER — REVEAL ══ */
+            var els = document.querySelectorAll('.reveal');
             if (!('IntersectionObserver' in window)) {
-                elements.forEach(function (el) { el.classList.add('revealed'); });
+                els.forEach(function (el) { el.classList.add('revealed'); });
                 return;
             }
 
@@ -1086,27 +1485,71 @@
                         observer.unobserve(entry.target);
                     }
                 });
-            }, {
-                threshold: 0.15,
-                rootMargin: '0px 0px -40px 0px'
-            });
+            }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
 
-            elements.forEach(function (el) { observer.observe(el); });
-        })();
+            els.forEach(function (el) { observer.observe(el); });
 
-        /* ══════════════════════════════════════
-           FOOTER DATE
-           ══════════════════════════════════════ */
-        (function () {
-            var el = document.getElementById('footerDate');
-            if (!el) return;
-            var d = new Date();
-            var formatted = d.toLocaleDateString('pt-BR', {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric'
-            });
-            el.textContent = formatted;
+            /* ══ PRICE COUNTER ANIMATION ══ */
+            var counters = document.querySelectorAll('[data-target]');
+            var counterObserver = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (!entry.isIntersecting) return;
+                    var el = entry.target;
+                    var target = parseInt(el.getAttribute('data-target'), 10);
+                    var start = 0;
+                    var duration = 1800;
+                    var startTime = null;
+
+                    function step(ts) {
+                        if (!startTime) startTime = ts;
+                        var p = Math.min((ts - startTime) / duration, 1);
+                        var eased = 1 - Math.pow(1 - p, 3);
+                        var current = Math.floor(eased * target);
+                        el.textContent = current.toLocaleString('pt-BR');
+                        if (p < 1) requestAnimationFrame(step);
+                    }
+
+                    requestAnimationFrame(step);
+                    counterObserver.unobserve(el);
+                });
+            }, { threshold: 0.5 });
+
+            counters.forEach(function (el) { counterObserver.observe(el); });
+
+            /* ══ SCROLL PROGRESS BAR ══ */
+            var progressBar = document.querySelector('.scroll-progress');
+            window.addEventListener('scroll', function () {
+                var scrollTop = document.documentElement.scrollTop;
+                var scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+                if (scrollHeight > 0) {
+                    progressBar.style.width = ((scrollTop / scrollHeight) * 100) + '%';
+                }
+            }, { passive: true });
+
+            /* ══ TIMELINE FILL ══ */
+            var timelineFill = document.querySelector('.timeline-fill');
+            var timeline = document.querySelector('.timeline');
+            if (timelineFill && timeline) {
+                var tlObserver = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            var lineEl = timeline.querySelector('.timeline::before') || timeline;
+                            var totalH = timeline.scrollHeight - 16;
+                            timelineFill.style.height = totalH + 'px';
+                            tlObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.2 });
+                tlObserver.observe(timeline);
+            }
+
+            /* ══ FOOTER DATE ══ */
+            var dateEl = document.getElementById('footerDate');
+            if (dateEl) {
+                dateEl.textContent = new Date().toLocaleDateString('pt-BR', {
+                    day: 'numeric', month: 'long', year: 'numeric'
+                });
+            }
         })();
     </script>
 </body>
