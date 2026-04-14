@@ -278,7 +278,7 @@
             pointer-events: none;
         }
 
-        .cover-content { position: relative; z-index: 2; }
+        .cover-content { position: relative; z-index: 2; width: 100%; }
 
         .cover-pre {
             font-family: var(--font-body);
@@ -336,9 +336,12 @@
         .cover-footer {
             position: absolute;
             bottom: 2.5rem;
-            left: 50%;
-            transform: translateX(-50%);
+            left: 0;
+            right: 0;
             z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
         }
 
